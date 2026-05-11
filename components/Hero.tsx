@@ -63,7 +63,7 @@ export function Hero({ cvUrl }: { cvUrl?: string }) {
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="z-10 text-center lg:text-left"
         >
           {/* Available badge */}
@@ -84,7 +84,7 @@ export function Hero({ cvUrl }: { cvUrl?: string }) {
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
             className="mb-4 text-5xl font-bold leading-[1.08] tracking-tight sm:text-7xl lg:text-8xl"
           >
             Hi, I&apos;m{" "}
@@ -187,7 +187,7 @@ export function Hero({ cvUrl }: { cvUrl?: string }) {
         <motion.div
           initial={{ opacity: 0, scale: 0.9, x: 40 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="relative flex flex-col items-center justify-center"
         >
           {/* Photo frame */}

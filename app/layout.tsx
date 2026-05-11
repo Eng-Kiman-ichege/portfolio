@@ -15,8 +15,12 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Evan | Fullstack Web Developer Portfolio",
-  description: "Modern portfolio showcasing high-performance web applications and creative solutions.",
+  title: "Evan | Fullstack Web Developer & AI Engineer",
+  description: "Modern portfolio showcasing high-performance web applications and AI-powered solutions.",
+  icons: {
+    icon: "/kimse.png",
+    apple: "/kimse.png",
+  },
 };
 
 export default function RootLayout({

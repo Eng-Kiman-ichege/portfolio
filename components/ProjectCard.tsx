@@ -53,7 +53,7 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
       initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] as [number, number, number, number], delay: index * 0.08 }}
       className="project-card group relative flex flex-col rounded-3xl overflow-hidden"
     >
       {/* Image area */}

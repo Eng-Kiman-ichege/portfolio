@@ -1,7 +1,13 @@
 "use client";
 
 import { useRef } from "react";
+import type { CSSProperties } from "react";
 import { motion, useInView } from "framer-motion";
+
+/** Helper: safely pass CSS custom properties to a style prop */
+function cssVars(vars: Record<string, string>): CSSProperties {
+  return vars as unknown as CSSProperties;
+}
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -96,22 +102,14 @@ const cardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
   },
 };
 
-const badgeVariants = {
-  hidden: { opacity: 0, scale: 0.85 },
-  visible: (i: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { delay: i * 0.04, duration: 0.35, ease: "easeOut" },
-  }),
-};
 
 const headingVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
 };
 
 /* ─── Sub-components ────────────────────────────────────────────────────── */
@@ -129,7 +127,7 @@ function CategoryCard({
       whileHover={{ y: -6, scale: 1.015 }}
       transition={{ type: "spring", stiffness: 280, damping: 22 }}
       className="capabilities-card group relative flex flex-col rounded-3xl overflow-hidden"
-      style={{ "--card-glow": cat.glow, "--card-border": cat.borderGlow } as React.CSSProperties}
+      style={cssVars({ "--card-glow": cat.glow, "--card-border": cat.borderGlow })}
     >
       {/* Ambient glow blob */}
       <div
@@ -183,21 +181,25 @@ function CategoryCard({
 
         {/* Skill badges */}
         <div className="flex flex-wrap gap-2 mt-auto">
-          {cat.skills.map((skill, i) => (
-            <motion.span
-              key={skill}
-              custom={i + index * 4}
-              variants={badgeVariants}
-              className="skill-badge"
-              style={{
-                "--badge-color": cat.color,
-                "--badge-bg": `${cat.color}14`,
-                "--badge-border": `${cat.color}30`,
-              } as React.CSSProperties}
-            >
-              {skill}
-            </motion.span>
-          ))}
+          {cat.skills.map((skill, i) => {
+            const delay = (i + index * 4) * 0.04;
+            return (
+              <motion.span
+                key={skill}
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay, duration: 0.35, ease: "easeOut" }}
+                className="skill-badge"
+                style={cssVars({
+                  "--badge-color": cat.color,
+                  "--badge-bg": `${cat.color}14`,
+                  "--badge-border": `${cat.color}30`,
+                })}
+              >
+                {skill}
+              </motion.span>
+            );
+          })}
         </div>
       </div>
 
@@ -294,7 +296,7 @@ export function Capabilities() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ delay: 0.85, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ delay: 0.85, duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="mt-16 sm:mt-20 grid grid-cols-2 sm:grid-cols-4 gap-px rounded-3xl overflow-hidden capabilities-stats-wrap"
         >
           {[
