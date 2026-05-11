@@ -70,7 +70,7 @@ const CONTACT_ITEMS = [
 ];
 
 const SOCIALS = [
-  { icon: Github, label: "GitHub", href: "#" },
+  { icon: Github, label: "GitHub", href: "https://github.com/Eng-Kiman-ichege" },
   { icon: Linkedin, label: "LinkedIn", href: "#" },
   { icon: Twitter, label: "Twitter / X", href: "#" },
 ];

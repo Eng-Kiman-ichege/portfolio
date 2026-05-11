@@ -29,7 +29,7 @@ const categories = [
     glow: "rgba(59,130,246,0.25)",
     borderGlow: "rgba(59,130,246,0.4)",
     skills: [
-      "Next.js", "React", "React Native", "Angular",
+      "Next.js", "React", "JavaScript", "React Native", "Angular",
       "Tailwind CSS", "Framer Motion", "shadcn/ui",
       "Responsive UI Design", "Component-Based Architecture",
       "Dynamic Forms & Interactive Interfaces",
@@ -300,7 +300,7 @@ export function Capabilities() {
           className="mt-16 sm:mt-20 grid grid-cols-2 sm:grid-cols-4 gap-px rounded-3xl overflow-hidden capabilities-stats-wrap"
         >
           {[
-            { value: "3+", label: "Years Building" },
+            { value: "4+", label: "Years Building" },
             { value: "26+", label: "Projects Shipped" },
             { value: "3", label: "Skill Domains" },
             { value: "100%", label: "Client Satisfaction" },

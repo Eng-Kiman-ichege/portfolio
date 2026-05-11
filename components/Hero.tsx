@@ -14,7 +14,7 @@ const ROLES = [
 ];
 
 const STATS = [
-  { value: "5+", label: "Years Exp." },
+  { value: "4+", label: "Years Exp." },
   { value: "26+", label: "Projects" },
   { value: "100%", label: "Satisfaction" },
 ];
@@ -166,7 +166,7 @@ export function Hero({ cvUrl }: { cvUrl?: string }) {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="mt-10 flex items-center justify-center lg:justify-start gap-5 text-muted-foreground"
           >
-            <a href="#" className="hero-social-link">
+            <a href="https://github.com/Eng-Kiman-ichege" target="_blank" rel="noopener noreferrer" className="hero-social-link">
               <Github className="h-5 w-5" />
               <span className="text-sm font-medium">GitHub</span>
             </a>
@@ -221,7 +221,7 @@ export function Hero({ cvUrl }: { cvUrl?: string }) {
           >
             <div className="glass rounded-2xl px-4 py-3 shadow-xl">
               <div className="flex items-center gap-3">
-                <span className="text-2xl font-bold text-accent">5+</span>
+                <span className="text-2xl font-bold text-accent">4+</span>
                 <div>
                   <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Years</p>
                   <p className="text-xs font-bold">Experience</p>
