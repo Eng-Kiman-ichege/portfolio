@@ -1,143 +1,289 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Github, Globe, Mail, ArrowRight, FileText } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowRight, FileText, ChevronDown } from "lucide-react";
+
+const ROLES = [
+  "Fullstack Developer",
+  "AI Engineer",
+  "UI/UX Designer",
+  "Next.js Specialist",
+];
+
+const STATS = [
+  { value: "5+", label: "Years Exp." },
+  { value: "26+", label: "Projects" },
+  { value: "100%", label: "Satisfaction" },
+];
 
 export function Hero({ cvUrl }: { cvUrl?: string }) {
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setRoleIndex((i) => (i + 1) % ROLES.length);
+    }, 2800);
+    return () => clearInterval(id);
+  }, []);
+
+  const scrollToProjects = () => {
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <section className="relative flex min-h-[90vh] lg:min-h-screen items-center justify-center overflow-hidden px-4 pt-28 pb-12 lg:pt-20">
-      <div className="container mx-auto grid gap-12 lg:grid-cols-2 lg:items-center">
-        {/* Left Content */}
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pt-24 pb-16">
+
+      {/* ── Background elements ── */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        {/* Mesh gradient */}
+        <div className="absolute inset-0 bg-gradient-mesh" />
+        {/* Grid */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+            backgroundSize: "72px 72px",
+          }}
+        />
+        {/* Blue orb right */}
+        <div className="absolute -top-32 right-[-10%] h-[600px] w-[600px] rounded-full bg-accent/15 blur-[120px]" />
+        {/* Purple orb left-bottom */}
+        <div className="absolute bottom-0 left-[-10%] h-[500px] w-[500px] rounded-full bg-purple-600/10 blur-[120px]" />
+        {/* Cyan orb center */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] rounded-full bg-cyan-500/5 blur-[100px]" />
+      </div>
+
+      <div className="container mx-auto grid gap-16 lg:grid-cols-2 lg:items-center">
+
+        {/* ── Left column ── */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
+          initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="z-10 text-center lg:text-left"
         >
+          {/* Available badge */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-sm font-medium text-accent"
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-sm font-medium text-accent backdrop-blur-sm"
           >
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
             Available for new projects
           </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+
+          {/* Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mb-6 text-5xl font-bold leading-[1.1] tracking-tight sm:text-7xl lg:text-8xl"
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-4 text-5xl font-bold leading-[1.08] tracking-tight sm:text-7xl lg:text-8xl"
           >
-            Fullstack <br />
-            <span className="text-accent">Developer</span> & <br />
-            Designer
+            Hi, I&apos;m{" "}
+            <span
+              style={{
+                background: "linear-gradient(135deg,#3b82f6 0%,#a855f7 50%,#06b6d4 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Evan
+            </span>
+            .
           </motion.h1>
-          
-          <motion.p 
+
+          {/* Cycling role */}
+          <div className="mb-6 h-12 sm:h-14 overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={roleIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                className="text-2xl sm:text-3xl font-semibold text-muted-foreground"
+              >
+                {ROLES[roleIndex]}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+
+          {/* Description */}
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="mb-10 mx-auto lg:mx-0 max-w-xl text-lg sm:text-xl text-muted-foreground leading-relaxed"
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mb-10 mx-auto lg:mx-0 max-w-xl text-lg text-muted-foreground leading-relaxed"
           >
-            I craft high-performance web experiences that blend technical excellence 
-            with pixel-perfect design. Specialized in Next.js, Supabase, and modern UI.
+            I craft high-performance web experiences and AI-powered products that
+            blend technical depth with pixel-perfect design. Specialized in
+            Next.js, Node.js, and intelligent automation.
           </motion.p>
-          
-          <motion.div 
+
+          {/* CTA buttons */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3"
           >
-            <Button size="lg" className="w-full sm:w-auto h-14 rounded-2xl px-8 text-lg font-bold shadow-lg shadow-accent/20 transition-all hover:scale-105 active:scale-95">
+            <button
+              onClick={scrollToProjects}
+              className="hero-btn-primary group w-full sm:w-auto"
+            >
               Explore Projects
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </button>
+
             {cvUrl ? (
               <a href={cvUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-                <Button variant="outline" size="lg" className="w-full h-14 rounded-2xl px-8 text-lg font-bold glass transition-all hover:bg-white/5 active:scale-95 gap-2">
+                <button className="hero-btn-secondary w-full">
                   <FileText className="h-5 w-5" />
                   Download CV
-                </Button>
+                </button>
               </a>
             ) : (
-              <Button variant="outline" size="lg" className="w-full sm:w-auto h-14 rounded-2xl px-8 text-lg font-bold glass transition-all hover:bg-white/5 active:scale-95">
-                Let&apos;s Talk
-              </Button>
+              <a href="#contact" className="w-full sm:w-auto">
+                <button className="hero-btn-secondary w-full">
+                  Let&apos;s Talk
+                </button>
+              </a>
             )}
           </motion.div>
-          
-          <motion.div 
+
+          {/* Social links */}
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-            className="mt-12 flex items-center justify-center lg:justify-start gap-6 sm:gap-8 text-muted-foreground"
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="mt-10 flex items-center justify-center lg:justify-start gap-5 text-muted-foreground"
           >
-            <a href="#" className="flex items-center gap-2 transition-colors hover:text-accent">
+            <a href="#" className="hero-social-link">
               <Github className="h-5 w-5" />
               <span className="text-sm font-medium">GitHub</span>
             </a>
-            <a href="#" className="flex items-center gap-2 transition-colors hover:text-accent">
-              <Globe className="h-5 w-5" />
-              <span className="text-sm font-medium">Dribbble</span>
+            <span className="h-4 w-px bg-white/10" />
+            <a href="#" className="hero-social-link">
+              <Linkedin className="h-5 w-5" />
+              <span className="text-sm font-medium">LinkedIn</span>
             </a>
-            <a href="#" className="flex items-center gap-2 transition-colors hover:text-accent">
+            <span className="h-4 w-px bg-white/10" />
+            <a href="mailto:kimf95023@gmail.com" className="hero-social-link">
               <Mail className="h-5 w-5" />
               <span className="text-sm font-medium">Email</span>
             </a>
           </motion.div>
         </motion.div>
 
-        {/* Right Image */}
+        {/* ── Right column — image ── */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, x: 50 }}
+          initial={{ opacity: 0, scale: 0.9, x: 40 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative flex justify-center lg:justify-end"
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="relative flex flex-col items-center justify-center"
         >
-          <div className="relative z-10 aspect-square w-full max-w-[320px] sm:max-w-[380px] overflow-hidden rounded-[2.5rem] border border-white/10 shadow-2xl">
-            <Image
-              src="/kimse.png"
-              alt="Evan Portfolio"
-              fill
-              className="object-cover object-top transition-transform duration-700 hover:scale-105"
-              priority
+          {/* Photo frame */}
+          <div className="relative z-10 aspect-square w-full max-w-[300px] sm:max-w-[380px]">
+            {/* Glow ring */}
+            <div
+              className="absolute inset-0 rounded-[2.5rem] blur-2xl opacity-40"
+              style={{
+                background: "conic-gradient(from 180deg, #3b82f6, #a855f7, #06b6d4, #3b82f6)",
+              }}
             />
-            {/* Overlay Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60" />
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 shadow-2xl h-full">
+              <Image
+                src="/kimse.png"
+                alt="Evan — Fullstack Developer & AI Engineer"
+                fill
+                className="object-cover object-top transition-transform duration-700 hover:scale-105"
+                priority
+              />
+              {/* Bottom gradient fade */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+            </div>
           </div>
-          
-          {/* Floating Card */}
+
+          {/* Floating stat cards */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.5 }}
-            className="glass absolute -bottom-4 left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 z-20 rounded-3xl p-4 sm:p-6"
+            initial={{ opacity: 0, x: -24, y: 12 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ delay: 1.0, duration: 0.5 }}
+            className="absolute -left-4 top-1/4 z-20"
           >
-            <div className="flex items-center gap-3 sm:gap-4">
-              <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-accent/20 text-accent">
-                <span className="text-xl sm:text-2xl font-bold">5+</span>
-              </div>
-              <div>
-                <p className="text-[10px] sm:text-sm font-bold uppercase tracking-wider text-muted-foreground">Years Experience</p>
-                <p className="text-sm sm:text-lg font-bold">Top-Tier Quality</p>
+            <div className="glass rounded-2xl px-4 py-3 shadow-xl">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl font-bold text-accent">5+</span>
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Years</p>
+                  <p className="text-xs font-bold">Experience</p>
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Background Glows */}
-          <div className="absolute -top-20 -right-20 -z-10 h-[300px] w-[300px] sm:h-[500px] sm:w-[500px] rounded-full bg-accent/20 blur-[80px] sm:blur-[120px]" />
-          <div className="absolute -bottom-20 -left-20 -z-10 h-[300px] w-[300px] sm:h-[500px] sm:w-[500px] rounded-full bg-purple-500/20 blur-[80px] sm:blur-[120px]" />
+          <motion.div
+            initial={{ opacity: 0, x: 24, y: 12 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ delay: 1.15, duration: 0.5 }}
+            className="absolute -right-4 top-1/2 z-20"
+          >
+            <div className="glass rounded-2xl px-4 py-3 shadow-xl">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl font-bold text-purple-400">26+</span>
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Apps</p>
+                  <p className="text-xs font-bold">Shipped</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.3, duration: 0.5 }}
+            className="absolute -bottom-6 left-1/2 -translate-x-1/2 z-20 whitespace-nowrap"
+          >
+            <div className="glass rounded-2xl px-5 py-3 shadow-xl">
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-2">
+                  {["#3b82f6", "#a855f7", "#06b6d4"].map((c, i) => (
+                    <div
+                      key={i}
+                      className="h-6 w-6 rounded-full border-2 border-background"
+                      style={{ background: c }}
+                    />
+                  ))}
+                </div>
+                <span className="text-xs font-semibold text-muted-foreground">
+                  <span className="text-foreground font-bold">100%</span> Client Satisfaction
+                </span>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.button
+        onClick={scrollToProjects}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.6, duration: 0.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground hover:text-accent transition-colors group"
+      >
+        <span className="text-[10px] font-mono tracking-widest uppercase">Scroll</span>
+        <ChevronDown className="h-5 w-5 animate-bounce" />
+      </motion.button>
     </section>
   );
 }

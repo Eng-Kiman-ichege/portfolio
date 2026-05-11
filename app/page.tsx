@@ -1,7 +1,9 @@
 import { Hero } from "@/components/Hero";
 import { ProjectCard } from "@/components/ProjectCard";
+import { Capabilities } from "@/components/Capabilities";
+import { Contact } from "@/components/Contact";
 import { supabase } from "@/lib/supabase";
-import { ArrowUpRight, Zap, Shield, Sparkles } from "lucide-react";
+import { Github, Linkedin, Twitter, Sparkles } from "lucide-react";
 
 async function getProjects() {
   const { data: projects, error } = await supabase
@@ -42,20 +44,22 @@ export default async function Home() {
         <div className="mb-12 sm:mb-20">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
-              <span className="text-accent font-mono text-xs sm:text-sm tracking-widest uppercase mb-3 sm:mb-4 block">Portfolio</span>
+              <span className="text-accent font-mono text-xs sm:text-sm tracking-widest uppercase mb-3 sm:mb-4 block">
+                Portfolio
+              </span>
               <h2 className="text-4xl sm:text-6xl font-bold tracking-tight">Featured Projects</h2>
             </div>
             <p className="max-w-md text-muted-foreground text-base sm:text-lg leading-relaxed">
               Every project is a unique opportunity to push boundaries and create 
-              something meaningful. Here are some of my favorite works.
+              something meaningful. Here are some of my favourite works.
             </p>
           </div>
         </div>
         
         {projects.length > 0 ? (
-          <div className="grid gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+          <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project, i) => (
+              <ProjectCard key={project.id} project={project} index={i} />
             ))}
           </div>
         ) : (
@@ -67,95 +71,43 @@ export default async function Home() {
         )}
       </section>
 
-      {/* Services/What I Do Section */}
-      <section className="relative py-20 sm:py-32">
-        <div className="absolute inset-0 bg-white/[0.02] -skew-y-2 sm:-skew-y-3 z-0" />
-        <div className="container relative z-10 mx-auto px-4">
-          <div className="grid gap-12 sm:gap-16 lg:grid-cols-2 lg:items-start">
-            <div className="lg:sticky lg:top-32">
-              <span className="text-accent font-mono text-xs sm:text-sm tracking-widest uppercase mb-3 sm:mb-4 block">Capabilities</span>
-              <h2 className="mb-6 sm:mb-8 text-4xl sm:text-6xl font-bold tracking-tight">Strategic Design & <br/>Digital Mastery</h2>
-              <p className="mb-8 sm:mb-10 text-lg sm:text-xl text-muted-foreground leading-relaxed">
-                I don&apos;t just write code. I build digital assets that drive growth, 
-                enhance user engagement, and solve complex business challenges.
-              </p>
-              
-              <div className="flex flex-col gap-4 sm:gap-6">
-                {[
-                  { icon: Zap, title: "High-Performance Apps", desc: "Lightning fast applications built with Next.js and optimized for SEO." },
-                  { icon: Shield, title: "Scalable Architecture", desc: "Robust backend systems with Supabase and secure authentication." },
-                  { icon: Sparkles, title: "Premium UI/UX", desc: "Bespoke interfaces that leave a lasting impression on your users." },
-                ].map((item, index) => (
-                  <div key={index} className="group flex flex-col sm:flex-row gap-4 sm:gap-6 p-5 sm:p-6 rounded-2xl sm:rounded-3xl transition-all hover:bg-white/5">
-                    <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-accent/10 text-accent transition-all group-hover:scale-110">
-                      <item.icon className="h-6 w-6 sm:h-7 sm:w-7" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2 group-hover:text-accent transition-colors">{item.title}</h3>
-                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 pt-12 lg:pt-0">
-              {[
-                { label: "React / Next.js", value: "95%", icon: "⚡" },
-                { label: "TypeScript", value: "90%", icon: "📘" },
-                { label: "Tailwind CSS", value: "98%", icon: "🎨" },
-                { label: "PostgreSQL / SQL", value: "85%", icon: "💾" },
-                { label: "Node.js", value: "88%", icon: "🟢" },
-                { label: "UI Design", value: "92%", icon: "🖋️" },
-                { label: "Python", value: "90%", icon: "🐍" },
-                { label: "Django / Flask", value: "85%", icon: "🌐" },
-                { label: "MongoDB", value: "88%", icon: "🍃" },
-                { label: "Express", value: "85%", icon: "⚙️" },
-                { label: "AWS", value: "80%", icon: "☁️" },
-                { label: "Angular", value: "85%", icon: "🅰️" },
-                { label: "React Native", value: "90%", icon: "📱" },
-              ].map((skill) => (
-                <div key={skill.label} className="glass-card flex flex-col items-center justify-center rounded-2xl sm:rounded-3xl p-8 sm:p-10 text-center group">
-                  <span className="mb-4 sm:mb-6 text-4xl sm:text-5xl transition-transform duration-500 group-hover:scale-125">{skill.icon}</span>
-                  <span className="text-lg sm:text-xl font-bold mb-2 tracking-tight">{skill.label}</span>
-                  <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden mt-4">
-                    <div className="h-full bg-accent" style={{ width: skill.value }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Capabilities Section — unchanged */}
+      <Capabilities />
 
-      {/* Call to Action */}
-      <section className="container mx-auto px-4 py-20 sm:py-32 text-center">
-        <div className="glass-card rounded-[2.5rem] sm:rounded-[4rem] p-10 sm:p-16 lg:p-24 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 h-[200px] w-[200px] sm:h-[300px] sm:w-[300px] bg-accent/20 blur-[80px] sm:blur-[100px] -z-10 group-hover:bg-accent/30 transition-all" />
-          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 sm:mb-8 tracking-tight">Ready to build <br/>your next vision?</h2>
-          <p className="text-lg sm:text-xl text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto">
-            I&apos;m currently open to freelance opportunities and full-time positions. 
-            Let&apos;s create something extraordinary together.
-          </p>
-          <a href="mailto:hello@example.com">
-            <button className="h-14 sm:h-16 px-8 sm:px-12 rounded-xl sm:rounded-2xl bg-white text-black font-bold text-lg sm:text-xl transition-all hover:scale-105 active:scale-95 flex items-center gap-3 mx-auto">
-              Get in Touch
-              <ArrowUpRight className="h-5 w-5 sm:h-6 sm:w-6" />
-            </button>
-          </a>
-        </div>
-      </section>
+      {/* Contact Section */}
+      <Contact />
 
+      {/* Footer */}
       <footer className="container mx-auto px-4 py-12 sm:py-16">
         <div className="border-t border-white/5 pt-10 sm:pt-12 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
-          <span className="text-2xl font-bold tracking-tighter">EVAN<span className="text-accent">.</span></span>
-          <div className="flex gap-6 sm:gap-8 text-muted-foreground font-medium text-sm sm:text-base">
-            <a href="#" className="hover:text-accent transition-colors">Instagram</a>
-            <a href="#" className="hover:text-accent transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-accent transition-colors">Twitter</a>
+          <div className="flex flex-col items-center md:items-start gap-1">
+            <span className="text-2xl font-bold tracking-tighter">
+              EVAN<span className="text-accent">.</span>
+            </span>
+            <p className="text-xs text-muted-foreground">Fullstack Developer &amp; AI Engineer</p>
           </div>
-          <p className="text-muted-foreground text-xs sm:text-sm">© {new Date().getFullYear()} Evan Studio. Crafted with Passion.</p>
+
+          <div className="flex gap-6 sm:gap-8 text-muted-foreground font-medium text-sm sm:text-base">
+            <a href="/#projects" className="footer-link">Projects</a>
+            <a href="/#capabilities" className="footer-link">Capabilities</a>
+            <a href="/#contact" className="footer-link">Contact</a>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <a href="#" className="flex items-center justify-center w-9 h-9 rounded-xl border border-white/8 text-muted-foreground hover:text-white hover:border-white/16 transition-all">
+              <Github className="h-4 w-4" />
+            </a>
+            <a href="#" className="flex items-center justify-center w-9 h-9 rounded-xl border border-white/8 text-muted-foreground hover:text-white hover:border-white/16 transition-all">
+              <Linkedin className="h-4 w-4" />
+            </a>
+            <a href="#" className="flex items-center justify-center w-9 h-9 rounded-xl border border-white/8 text-muted-foreground hover:text-white hover:border-white/16 transition-all">
+              <Twitter className="h-4 w-4" />
+            </a>
+          </div>
         </div>
+        <p className="text-center text-muted-foreground text-xs mt-8">
+          © {new Date().getFullYear()} Evan Studio. Crafted with passion &amp; precision.
+        </p>
       </footer>
     </main>
   );
