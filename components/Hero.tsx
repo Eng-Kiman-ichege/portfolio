@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, ArrowRight, FileText, ChevronDown } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowRight, FileText, ChevronDown, X, ExternalLink } from "lucide-react";
 
 const ROLES = [
   "Fullstack Developer",
@@ -21,6 +21,7 @@ const STATS = [
 
 export function Hero({ cvUrl }: { cvUrl?: string }) {
   const [roleIndex, setRoleIndex] = useState(0);
+  const [isGithubModalOpen, setIsGithubModalOpen] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -166,10 +167,13 @@ export function Hero({ cvUrl }: { cvUrl?: string }) {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="mt-10 flex items-center justify-center lg:justify-start gap-5 text-muted-foreground"
           >
-            <a href="https://github.com/Eng-Kiman-ichege" target="_blank" rel="noopener noreferrer" className="hero-social-link">
+            <button 
+              onClick={() => setIsGithubModalOpen(true)}
+              className="hero-social-link"
+            >
               <Github className="h-5 w-5" />
               <span className="text-sm font-medium">GitHub</span>
-            </a>
+            </button>
             <span className="h-4 w-px bg-white/10" />
             <a href="#" className="hero-social-link">
               <Linkedin className="h-5 w-5" />
@@ -284,6 +288,81 @@ export function Hero({ cvUrl }: { cvUrl?: string }) {
         <span className="text-[10px] font-mono tracking-widest uppercase">Scroll</span>
         <ChevronDown className="h-5 w-5 animate-bounce" />
       </motion.button>
+
+      {/* ── GitHub Modal ── */}
+      <AnimatePresence>
+        {isGithubModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsGithubModalOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-[#0a0a0a] p-8 shadow-2xl"
+            >
+              <button 
+                onClick={() => setIsGithubModalOpen(false)}
+                className="absolute right-4 top-4 rounded-xl p-2 text-muted-foreground hover:bg-white/5 hover:text-white transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              <div className="mb-8 flex flex-col items-center text-center">
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 border border-white/10">
+                  <Github className="h-8 w-8" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Select Account</h3>
+                <p className="text-muted-foreground text-sm">Which GitHub profile would you like to visit?</p>
+              </div>
+
+              <div className="grid gap-4">
+                <a 
+                  href="https://github.com/Evan-cell"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between rounded-2xl border border-white/5 bg-white/[0.02] p-5 hover:border-accent/40 hover:bg-accent/5 transition-all"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                      <Github className="h-5 w-5" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-bold">Primary Profile</p>
+                      <p className="text-xs text-muted-foreground">Main development hub</p>
+                    </div>
+                  </div>
+                  <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
+                </a>
+
+                <a 
+                  href="https://github.com/Eng-Kiman-ichege"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between rounded-2xl border border-white/5 bg-white/[0.02] p-5 hover:border-purple-500/40 hover:bg-purple-500/5 transition-all"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
+                      <Github className="h-5 w-5" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-bold">Secondary Profile</p>
+                      <p className="text-xs text-muted-foreground">Research & alternative works</p>
+                    </div>
+                  </div>
+                  <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-purple-400 transition-colors" />
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

@@ -94,7 +94,7 @@ export default async function Home() {
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="https://github.com/Eng-Kiman-ichege" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-9 h-9 rounded-xl border border-white/8 text-muted-foreground hover:text-white hover:border-white/16 transition-all">
+            <a href="https://github.com/Evan-cell" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-9 h-9 rounded-xl border border-white/8 text-muted-foreground hover:text-white hover:border-white/16 transition-all">
               <Github className="h-4 w-4" />
             </a>
             <a href="#" className="flex items-center justify-center w-9 h-9 rounded-xl border border-white/8 text-muted-foreground hover:text-white hover:border-white/16 transition-all">
