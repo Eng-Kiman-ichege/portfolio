@@ -180,7 +180,7 @@ export function Hero({ cvUrl }: { cvUrl?: string }) {
               <span className="text-sm font-medium">LinkedIn</span>
             </a>
             <span className="h-4 w-px bg-white/10" />
-            <a href="mailto:kimf95023@gmail.com" className="hero-social-link">
+            <a href="mailto:malcomchege0582@gmail.com" className="hero-social-link">
               <Mail className="h-5 w-5" />
               <span className="text-sm font-medium">Email</span>
             </a>

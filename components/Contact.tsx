@@ -49,8 +49,8 @@ const CONTACT_ITEMS = [
   {
     icon: Mail,
     label: "Email",
-    value: "kimf95023@gmail.com",
-    href: "mailto:kimf95023@gmail.com",
+    value: "malcomchege0582@gmail.com",
+    href: "mailto:malcomchege0582@gmail.com",
     color: "#3b82f6",
   },
   {
@@ -133,7 +133,7 @@ export function Contact() {
     // Open mailto as fallback
     const subject = encodeURIComponent(form.subject);
     const body = encodeURIComponent(`Hi Evan,\n\n${form.message}\n\n— ${form.name} (${form.email})`);
-    window.location.href = `mailto:kimf95023@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:malcomchege0582@gmail.com?subject=${subject}&body=${body}`;
 
     setStatus("success");
     setForm({ name: "", email: "", subject: "", message: "" });
